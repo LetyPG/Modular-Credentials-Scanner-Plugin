@@ -1,0 +1,33 @@
+{
+  "category": "VCS and Collaboration Tokens",
+  "signatures": [
+    {
+      "id": "SIG-GH-001",
+      "name": "GitHub Personal Access Token (Classic)",
+      "regex": "\\bghp_[0-9a-zA-Z]{36}\\b",
+      "confidence": "HIGH",
+      "impact": "Source code exfiltration, repository write access, release tampering"
+    },
+    {
+      "id": "SIG-GH-002",
+      "name": "GitHub Fine-Grained Personal Access Token",
+      "regex": "\\bgithub_pat_[0-9a-zA-Z_]{82}\\b",
+      "confidence": "HIGH",
+      "impact": "Repository manipulation, branch protection bypass, token privilege escalation"
+    },
+    {
+      "id": "SIG-GH-003",
+      "name": "GitHub OAuth / App Token",
+      "regex": "\\b(gho|ghu|ghs|ghr)_[0-9a-zA-Z]{36}\\b",
+      "confidence": "HIGH",
+      "impact": "OAuth identity spoofing, bot workflow interception"
+    },
+    {
+      "id": "SIG-SLACK-001",
+      "name": "Slack Bot/User/App Token",
+      "regex": "\\bxox[baprs]-[0-9a-zA-Z]{10,48}\\b",
+      "confidence": "HIGH",
+      "impact": "Workspace chat exfiltration, internal impersonation, sensitive channel monitoring"
+    }
+  ]
+}

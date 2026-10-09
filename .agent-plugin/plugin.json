@@ -1,0 +1,19 @@
+{
+  "name": "modular-credentials-scanner-plugin",
+  "version": "1.0.0",
+  "description": "Modular security plugin for detecting potential credential exposure through agent tool-use hooks.",
+  "engine": {
+    "python": ">=3.10"
+  },
+  "author": {
+    "name": "Leticia Gainza",
+    "role": "Software Quality Engineering Consultant"
+  },
+  "repository": "https://github.com/LetyPG/Modular-Credentials-Sacanner-Plugin",
+  "license": "Apache-2.0",
+  "keywords": [
+    "security",
+    "credential-scanning",
+    "secret-detection"
+  ]
+}

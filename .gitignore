@@ -1,0 +1,12 @@
+
+.__pycache__
+.env
+.venv/
+.pytest_cache/
+__pycache__
+
+
+*.egg-info/
+.ruff_cache/
+
+modular_credentials_scanner_plugin.egg-info/

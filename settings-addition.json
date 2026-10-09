@@ -1,0 +1,20 @@
+{
+  "plugins": {
+    "modular-credentials-scanner-plugin": {
+      "enabled": true,
+      "hooks": {
+        "PreToolUse": [
+          {
+            "matcher": "view_file|read_file|grep_search",
+            "hooks": [
+              {
+                "type": "command",
+                "command": "python3 <absolute/path/to/repo>/modular-credentials-scanner-plugin>/hooks/capacity_gate_hook.py"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

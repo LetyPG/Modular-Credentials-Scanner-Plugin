@@ -1,0 +1,26 @@
+{
+  "category": "Payment Gateways & AI Platforms",
+  "signatures": [
+    {
+      "id": "SIG-STRIPE-001",
+      "name": "Stripe Secret / Restricted API Key",
+      "regex": "\\b[rs]k_(live|test)_[0-9a-zA-Z]{24,99}\\b",
+      "confidence": "HIGH",
+      "impact": "Financial ledger exfiltration, unauthorized transaction processing, refund fraud"
+    },
+    {
+      "id": "SIG-OPENAI-001",
+      "name": "OpenAI API Key (Classic & Project)",
+      "regex": "\\bsk-[a-zA-Z0-9]{20,T3BlbkFJ[a-zA-Z0-9]{20,}\\b|\\bsk-proj-[a-zA-Z0-9_\\-]{48,}\\b",
+      "confidence": "HIGH",
+      "impact": "OpenAI organization credit draining, model endpoint hijacking, fine-tuned model exfiltration"
+    },
+    {
+      "id": "SIG-HF-001",
+      "name": "Hugging Face User Access Token",
+      "regex": "\\bhf_[a-zA-Z0-9]{34,}\\b",
+      "confidence": "HIGH",
+      "impact": "Private model/dataset theft, gated repository access, compute billing charges"
+    }
+  ]
+}

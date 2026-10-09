@@ -1,0 +1,19 @@
+{
+  "category": "Cloud Providers",
+  "signatures": [
+    {
+      "id": "SIG-AWS-001",
+      "name": "AWS Access Key ID",
+      "regex": "(?i)\\b(AKIA|ABIA|ACCA|ASIA)[0-9A-Z]{16}\\b",
+      "confidence": "HIGH",
+      "impact": "Cloud resource takeover, infrastructure destruction, unauthorized compute usage"
+    },
+    {
+      "id": "SIG-GCP-001",
+      "name": "Google Cloud / Gemini API Key",
+      "regex": "\\bAIza[0-9A-Za-z\\-_]{35}\\b",
+      "confidence": "HIGH",
+      "impact": "Unauthorized Google Cloud API consumption, quota draining, bill fraud"
+    }
+  ]
+}

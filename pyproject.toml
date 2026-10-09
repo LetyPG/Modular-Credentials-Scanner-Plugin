@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "modular-credentials-scanner-plugin"
+version = "0.1.0"
+description = "Modular credentials scanner plugin for AI agents"
+requires-python = ">=3.10"
+dependencies = []   # empty now because hooks only use standard libs. Update if any new lib is added
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-mock>=3.12.0",
+    "poethepoet>=0.25.0",
+    "ruff>=0.12.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["hooks*"]
+
+[tool.poe.tasks]
+lint                      = "ruff check ."
+"lint:fix"                = "ruff check . --fix"
+test                      = "pytest tests"
+"test:hook"               = "pytest tests/tests-hooks"
+"test:hook-unit"          = "pytest tests/tests-hooks/unit"
+"test:hook-contract"      = "pytest tests/tests-hooks/unit/test_hook_contract.py"
+"test:archetype-detector" = "pytest tests/tests-hooks/unit/test_archetype_detector.py"
+"test:capacity-evaluator" = "pytest tests/tests-hooks/unit/test_capacity_evaluator.py"
+"test:exclusion-filter"   = "pytest tests/tests-hooks/unit/test_exclusion_filter.py"
+"test:risk-prioritizer"   = "pytest tests/tests-hooks/unit/test_risk_prioritizer.py"
+"test:hook-integration"   = "pytest tests/tests-hooks/integration"
+"test:engine"             = "pytest tests/tests-hooks/integration/test_discovery_engine.py"
+"test:capacity-gate"      = "pytest tests/tests-hooks/integration/test_capacity_gate_hook.py"
+"test:skills"             = "pytest tests/tests-skills"
+"test:git-exposure-risk"  = "pytest tests/tests-skills/test_classify_risk_exposure_git.py"
+"test:confidence-rating"  = "pytest tests/tests-skills/test_evaluate_confidence.py"
+"test:risk-consolidator"  = "pytest tests/tests-skills/test_consolidate_risk.py"
+
+[tool.ruff.lint]
+ignore = ["N999"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [
+    ".",
+    "skills/git-exposure-checker/scripts",
+    "skills/secret-false-positive-filter/scripts",
+    "skills/safe-audit-reporter/scripts",
+]
+

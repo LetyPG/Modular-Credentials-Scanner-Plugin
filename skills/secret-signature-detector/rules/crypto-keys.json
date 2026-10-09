@@ -1,0 +1,19 @@
+{
+  "category": "Cryptographic Keys and Certificates",
+  "signatures": [
+    {
+      "id": "SIG-CRYPTO-001",
+      "name": "PEM Private Key Header Block",
+      "regex": "-----BEGIN (RSA|DSA|EC|OPENSSH|PGP|ENCRYPTED)? ?PRIVATE KEY-----",
+      "confidence": "HIGH",
+      "impact": "Server shell compromise, SSH tunneling, cryptographic MITM, certificate spoofing"
+    },
+    {
+      "id": "SIG-CRYPTO-002",
+      "name": "PuTTY Private Key Header",
+      "regex": "PuTTY-User-Key-File-2",
+      "confidence": "HIGH",
+      "impact": "SSH authentication compromise, server shell takeover"
+    }
+  ]
+}

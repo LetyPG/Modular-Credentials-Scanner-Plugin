@@ -132,7 +132,7 @@ Do not assume that a successful repository clone means the hook is active.
 
 Currently the  [secret-exposure-auditor](./agents/secret-exposure-auditor.md)  is the sub-agent, which operates as a plugin orchestrator, so it trigger specific skills or the full audit pipeline, this method is designed to eliminate unnecessary token ingestion. 
 
-Below you can check the 2 modes, always needs to be **Enabled:True** the plugin:
+Below you can check the 2 modes, always needs to be **Enabled:True** the plugin and you should **provide the path to the target scan**, prefer use **absolute path** to avoid any issue with the hook execution or plugin discovery:
 
 ### Mode 1: Targeted Single-Skill Execution (Token & Time Efficient)
 When the user's intent maps to a narrow task, *User* propmt example:

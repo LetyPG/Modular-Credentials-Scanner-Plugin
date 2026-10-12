@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "modular-credentials-scanner-plugin"
-version = "0.1.0"
+version = "1.0.0"
 description = "Modular credentials scanner plugin for AI agents"
 requires-python = ">=3.10"
 dependencies = []   # empty now because hooks only use standard libs. Update if any new lib is added

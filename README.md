@@ -138,25 +138,36 @@ Below you can check the 2 modes, always needs to be **Enabled:True** the plugin 
 When the user's intent maps to a narrow task, *User* propmt example:
 
 ```txt
-Use /modular-credentials-sacanner-plugin to check if is .env is git tracked
+Use /modular-credentials-sacanner-plugin to check if is .env is git tracked <absolute/path/to/project/>
 ```
 ```txt
-Use /modular-credentials-sacanner-plugin to run a regex for AWS keys in /src directory
+Use /modular-credentials-sacanner-plugin to run a regex for AWS keys in /src directory <absolute/path/to/project/>
 ```
 In this case the  sub-agent identifies the specific matcher and can prompt the user with an informative decision:
 * **Option A (Targeted Execution):** Runs ONLY `<specific-selected-skill>` with targeted arguments (e.g. `git-exposure-checker` on `.env`), skipping all other stages and saving thousands of tokens.
 * **Option B (Comprehensive Audit):** Runs the full audit across the entire workspace.
 
+- First, the sub-agent execute the `hooks/capacity_gate_hook.py` with the <absolute/path/to/project/> target.
+- Then execute the specific skill with the <absolute/path/to/project/> target.
+
+[BACK TO INDEX](#index)
+
 ### Mode 2: Full End-to-End Audit Pipeline
 When a broad audit is requested or selected for the *User* prompt, for example:
 ```txt
-Use /modular-credentials-sacanner-plugin to run a full audit
+Use /modular-credentials-sacanner-plugin to run a full audit <absolute/path/to/project/>
 ```
 ```txt
-Use /modular-credentials-sacanner-plugin to scan for secrets in the entire workspace
+Use /modular-credentials-sacanner-plugin to scan for secrets in the entire workspace <absolute/path/to/project/>
 ```
 The sub-agent sequentially executes:
 `hooks/capacity_gate_hook.py` (Deterministic Discovery) -> `secret-signature-detector` -> `secret-entropy-scanner` -> `git-exposure-checker` -> `secret-false-positive-filter` -> `safe-audit-reporter`.
+
+>[!NOTE]
+>If you already use and `AGENT.md` file or othere work memory for your agents you can indicated the registry acces to the plugin path, or you can enable it in your markek place to use it automaticaly full audit mode.
+
+>[!NOTE]
+> Test the plugin before use it, add some credentiasl or hardcode strings in your codebase to verify it works as expected. For example: `OPENAI_API_KEY=sk-1234567890` or `DB_PASSWORD=admin123`. Test the plugin as muts you need, preserve the *Zero Trust* Principle, it means constant verification and auditable evidence over trust in the code or in ourself. This principle is the foundation of the secure systems.
 
 [BACK TO INDEX](#index)
 

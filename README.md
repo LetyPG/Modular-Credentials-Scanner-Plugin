@@ -1,8 +1,8 @@
 # Modular Credentials and Secrets Scanner Suite
 
-A modular, decomposed security audit suite for detecting exposed credentials, API keys, tokens, private keys, and sensitive configuration in local repositories, to prevent security credentials and secrets exposure through AI agent tool-use.
+A modular, decomposed security audit suite for detecting exposed credentials, API keys, tokens, private keys, and sensitive configuration in local repositories to prevent the exposure of security credentials and secrets through AI agent tool use.
 
-This plugin is intended to provide a security guradrail, considering that this issues has become in a security vulnerability pattern of AI-native software development, as scale with software faster delivery.
+This plugin is intended to provide a security guardrail, considering that this issue has become in a security vulnerability pattern of AI-native software development, as it scales with faster software delivery.
 
 
 ---
@@ -11,7 +11,7 @@ This plugin is intended to provide a security guradrail, considering that this i
 - [Architecture Overview](#architecture-overview)
 - [Dependencies](#dependencies)
 - [Installation and Setup](#installation-and-setup)
-- [How to Use the plugin - Dual Execution Modes](#how-to-use-the-plugin-dual-execution-modes)
+- [How to Use the plugin - Dual Execution Modes](#how-to-use-the-plugin)
 - [Hook Allocation and Enforcement](#hook-allocation-and-enforcement)
 - [Invariant Rules](#invariant-rules)
 
@@ -23,7 +23,7 @@ modular-credentials-scanner-plugin/
 ├── .agent-plugin/                              # plugin standard metadata
 ├── agents/                                     # orchestrator agent, security auditor
 ├── hooks/                                      # plugin hooks, components called by orchestrator agent
-├── skills/                                     # plugin skills, the different tasks, there are 5 skills
+├── skills/                                     # plugin skills, the different tasks; there are 5 skills
 ├── tests/                                      # plugin tests for hooks, and for skills script
 ├── .pyproject.toml/                            # dependencies for test execution   
 └──settings-addition.json/                     # plugin settings reference, to add in your  custom agent or global agent settings
@@ -68,7 +68,7 @@ flowchart TD
 | Runtime          | Version       | Notes                          |
 | ---------------- | ------------- | ------------------------------ |
 | Python  (mandatory)         | >= 3.10       | Standard library only          |
-| Development (optional)      | `pytest>=8.0.0`, `pytest-mock>=3.12.0`, `poethepoet>=0.25.0`, `ruff>=0.12.0` | Install with `pip install -e ".[dev]"` , you can find more info in [pyproject.toml](./pyproject.toml) |
+| Development (optional)      | `pytest>=8.0.0`, `pytest-mock>=3.12.0`, `poethepoet>=0.25.0`, `ruff>=0.12.0` | Install with `pip install -e ".[dev]"`; you can find more info in [pyproject.toml](./pyproject.toml) |
 ---
 
 ## Installation and Setup
@@ -79,7 +79,7 @@ This plugin can be installed globally or locally, depending on the configuration
 - `agentic-system-name/plugin/<add-plugin-here>`
 - `agentic-system-name/.config/plugins/marketplace/<add-plugin-here>`
 
-**Note:** This project uses `git clone` instead of `npx`, consistent with the goal of building a security plugin for AI agents that is host-agent agnostic, transparent in its installation, and user-controlled.
+**Note:** This project uses `git clone` instead of `npx`, consistent with building a security plugin for AI agents that is host-agent agnostic, transparent in its installation, and user-controlled.
 
 ### 1. Clone the repository
 
@@ -128,26 +128,28 @@ Do not assume that a successful repository clone means the hook is active.
 
 [BACK TO INDEX](#index)
 
-## How to Use the plugin - Dual Execution Modes
+## How to Use the plugin 
 
-Currently the  [secret-exposure-auditor](./agents/secret-exposure-auditor.md)  is the sub-agent, which operates as a plugin orchestrator, so it trigger specific skills or the full audit pipeline, this method is designed to eliminate unnecessary token ingestion. 
+**Dual Execution Modes**
 
-Below you can check the 2 modes, always needs to be **Enabled:True** the plugin and you should **provide the path to the target scan**, prefer use **absolute path** to avoid any issue with the hook execution or plugin discovery:
+Currently, the  [secret-exposure-auditor](./agents/secret-exposure-auditor.md)  is the sub-agent, which operates as a plugin orchestrator, so it triggers specific skills or the full audit pipeline; this method is designed to eliminate unnecessary token ingestion. 
+
+Below, you can check the 2 modes. The plugin always needs to be ** Enabled: True **, and you should **provide the path to the target scan**; preferably use an **absolute path** to avoid any issues with the hook execution or plugin discovery:
 
 ### Mode 1: Targeted Single-Skill Execution (Token & Time Efficient)
-When the user's intent maps to a narrow task, *User* propmt example:
+When the user's intent maps to a narrow task, *User* prompt example:
 
 ```txt
-Use /modular-credentials-sacanner-plugin to check if is .env is git tracked <absolute/path/to/project/>
+Use /modular-credentials-sacanner-plugin to check if .env is git tracked <absolute/path/to/project/>
 ```
 ```txt
-Use /modular-credentials-sacanner-plugin to run a regex for AWS keys in /src directory <absolute/path/to/project/>
+Use /modular-credentials-sacanner-plugin to run a regex for AWS keys in the/src directory <absolute/path/to/project/>
 ```
-In this case the  sub-agent identifies the specific matcher and can prompt the user with an informative decision:
+In this case, the  sub-agent identifies the specific matcher and can prompt the user with an informative decision:
 * **Option A (Targeted Execution):** Runs ONLY `<specific-selected-skill>` with targeted arguments (e.g. `git-exposure-checker` on `.env`), skipping all other stages and saving thousands of tokens.
 * **Option B (Comprehensive Audit):** Runs the full audit across the entire workspace.
 
-- First, the sub-agent execute the `hooks/capacity_gate_hook.py` with the <absolute/path/to/project/> target.
+- First, the sub-agent executes the `hooks/capacity_gate_hook.py` with the <absolute/path/to/project/> target.
 - Then execute the specific skill with the <absolute/path/to/project/> target.
 
 [BACK TO INDEX](#index)
@@ -164,22 +166,22 @@ The sub-agent sequentially executes:
 `hooks/capacity_gate_hook.py` (Deterministic Discovery) -> `secret-signature-detector` -> `secret-entropy-scanner` -> `git-exposure-checker` -> `secret-false-positive-filter` -> `safe-audit-reporter`.
 
 >[!NOTE]
->If you already use and `AGENT.md` file or othere work memory for your agents you can indicated the registry acces to the plugin path, or you can enable it in your markek place to use it automaticaly full audit mode.
+>If you already use an `AGENT.md` file or other work memory for your agents, you can indicate the registry access to the plugin path, or you can enable it in your marketplace to use it in automatic full audit mode.
 
 >[!NOTE]
-> Test the plugin before use it, add some credentiasl or hardcode strings in your codebase to verify it works as expected. For example: `OPENAI_API_KEY=sk-1234567890` or `DB_PASSWORD=admin123`. Test the plugin as muts you need, preserve the *Zero Trust* Principle, it means constant verification and auditable evidence over trust in the code or in ourself. This principle is the foundation of the secure systems.
+> Test the plugin before using it; add some credentials or hardcode strings in your codebase to verify it works as expected. For example: `OPENAI_API_KEY=sk-1234567890` or `DB_PASSWORD=admin123`. Test the plugin as much as you need; preserve the *Zero Trust* Principle, it means constant verification and auditable evidence over trust in the code or in ourselves. This principle is the foundation of secure systems.
 
 [BACK TO INDEX](#index)
 
 ## Hook Allocation and Enforcement
-This project use a PreToolUse hook to gate the tool usage, it intercept the tool calls `view_file|read_file|grep_search` before execution. 
-The goal is to make the tool call deterministic and efficient, while prevent the usage of large files from the context window and reduce the token consumption, also prioritize the relevant files for the scan considering patterns and risk tier,prioritizing the high risk files first.
+This project use a PreToolUse hook to gate tool usage; it intercepts the tool calls `view_file|read_file|grep_search` before execution. 
+The goal is to make the tool call deterministic and efficient, while preventing the use of large files from the context window and reducing token consumption; it also prioritizes the relevant files for the scan considering patterns and risk tier, prioritizing the high-risk files first.
 
 **The `hook` can be invoked in 2 forms:**
-- By adding it within an existing `agent.setting.json` or `agent.setting.yaml` file (thi was explained in the section **3. Configure the plugin** )
+- By adding it within an existing `agent.setting.json` or `agent.setting.yaml` file (this was explained in the section **3. Configure the plugin** )
 - By adding `hook: python3 hooks/capacity_gate_hook.py` to the agent's YAML frontmatter metadata.
 
-Currently project already include the both forms, so you can select the desired form to use it, as your agent custom workflow preference (also this could be change in the mode that you setup the plugin, if is local or global use).
+Currently, the project already includes both forms, so you can select the desired form to use as your agent's custom workflow preference (this could also be changed in the mode that you set up the plugin, if it is local or global use).
 
 **Current project `hooks` allocation:**
 
@@ -204,7 +206,7 @@ If you want to run tests or contribute to the project, follow the testing instru
 [BACK TO INDEX](#index)
 
 [!IMPORTANT]
->This project use deterministic features in some parts to combine regex logical detection with other engines and LLM classification for a more effective detection. You can fine some of them as a couplin monolithic, this was intentional, because each of them were considered as unique tool, now as a complete src deterministic aplication, but if you consider a better aproach you can modularize it as much as you want. 
+>This project uses deterministic features in some parts to combine regex logical detection with other engines and LLM classification for more effective detection. You can fine some of them as a coupled monolithic; this was intentional, because each of them was considered a unique tool. Now, as a complete src deterministic application, but if you consider a better approach, you can modularize it as much as you want. 
 
 ## License
 Copyright 2026 Leticia Perez Gainza. Licensed under the Apache License 2.0.

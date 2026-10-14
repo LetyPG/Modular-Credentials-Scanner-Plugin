@@ -171,6 +171,10 @@ The sub-agent sequentially executes:
 >[!NOTE]
 > Test the plugin before using it; add some credentials or hardcode strings in your codebase to verify it works as expected. For example: `OPENAI_API_KEY=sk-1234567890` or `DB_PASSWORD=admin123`. Test the plugin as much as you need; preserve the *Zero Trust* Principle, it means constant verification and auditable evidence over trust in the code or in ourselves. This principle is the foundation of secure systems.
 
+**Example of a plugin runtime made with Antigravity Agent**
+
+![agent plugin runtime example](agent_plugin_runtime.png)
+
 [BACK TO INDEX](#index)
 
 ## Hook Allocation and Enforcement

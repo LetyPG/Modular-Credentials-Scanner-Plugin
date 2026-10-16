@@ -119,10 +119,10 @@ Refer to your agent's documentation for the exact settings location, hook syntax
 
 After enabling the plugin:
 
-[x] Confirm that Python meets the minimum version requirement.
-[x] Check that the hook file exists at the configured path.
-[x] Verify that the agent recognizes the hook configuration.
-[x] Perform a functional check using the documented hook behavior.
+- [x] Confirm that Python meets the minimum version requirement.
+- [x] Check that the hook file exists at the configured path.
+- [x] Verify that the agent recognizes the hook configuration.
+- [x] Perform a functional check using the documented hook behavior.
 
 Do not assume that a successful repository clone means the hook is active.
 

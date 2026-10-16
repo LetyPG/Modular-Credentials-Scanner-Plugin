@@ -210,7 +210,11 @@ If you want to run tests or contribute to the project, follow the testing instru
 [BACK TO INDEX](#index)
 
 [!IMPORTANT]
->This project uses deterministic features in some parts to combine regex logical detection with other engines and LLM classification for more effective detection. You can fine some of them as a coupled monolithic; this was intentional, because each of them was considered a unique tool. Now, as a complete src deterministic application, but if you consider a better approach, you can modularize it as much as you want. 
+>This project uses deterministic features in some parts to combine regex logical detection with other engines and LLM classification for more effective detection. You can fine some of them as a coupled monolithic; this was intentional, because each of them was considered a unique tool. Not, as a complete src deterministic application, but if you consider a better approach, you can modularize it as much as you want.
+>
+>This proposal is not intended to replace individuals or security teams; rather, its objective is to share a procedure that facilitates the development of more robust security frameworks, intending to prevent, to the greatest extent possible, exposure to vulnerabilities.
+>
+>You should apply other security practices and controls as a *Defense in Depth* Strategy
 
 ## License
 Copyright 2026 Leticia Perez Gainza. Licensed under the Apache License 2.0.
